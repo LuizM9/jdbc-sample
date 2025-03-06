@@ -20,9 +20,9 @@ public class Main {
         flyway.migrate();
 
         var employee = new EmployeeEntity();
-        employee.setName("Luiz");
-        employee.setSalary(new BigDecimal("3500"));
-        employee.setBirthday(OffsetDateTime.now().minusYears(20));
+        employee.setName("Junior");
+        employee.setSalary(new BigDecimal("4500"));
+        employee.setBirthday(OffsetDateTime.now().minusYears(18));
         System.out.println(employee);
         employeeDAO.insert(employee);
         System.out.println(employee);
