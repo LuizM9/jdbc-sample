@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.persistence.EmployeeDAO;
+import org.example.persistence.EmployeeParamDAO;
 import org.example.persistence.entity.EmployeeAuditDAO;
 import org.example.persistence.entity.EmployeeEntity;
 import org.flywaydb.core.Flyway;
@@ -12,21 +13,22 @@ import java.time.OffsetDateTime;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    private final static EmployeeDAO employeeDAO = new EmployeeDAO();
+    private final static EmployeeParamDAO employeeDAO = new EmployeeParamDAO();
     private final static EmployeeAuditDAO employeeAuditDAO = new EmployeeAuditDAO();
 
     public static void main(String[] args) {
         var flyway = Flyway.configure()
                 .dataSource("jdbc:mysql://localhost/jdbc-sample", "root", "root")
                 .load();
+        flyway.repair();
         flyway.migrate();
 
         var insert = new EmployeeEntity();
-        insert.setName("Junior");
+        insert.setName("Junior'");
         insert.setSalary(new BigDecimal("4500"));
         insert.setBirthday(OffsetDateTime.now().minusYears(18));
         System.out.println(insert);
-        employeeDAO.insert(insert);
+        employeeDAO.insertWithProcedure(insert);
         System.out.println(insert);
 //
 //        employeeDAO.findAll().forEach(System.out::println);
