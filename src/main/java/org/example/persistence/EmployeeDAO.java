@@ -15,6 +15,23 @@ import static java.time.ZoneOffset.UTC;
 public class EmployeeDAO {
 
     public void insert(final EmployeeEntity entity){
+        try(
+                var connection = ConnectionUtil.getConnection();
+                var statement = connection.createStatement()
+        ){
+            var sql = "INSERT INTO employees (name, salary, birthday) values ('" +
+                    entity.getName() + "', " +
+                    entity.getSalary().toString() + ", " +
+                    "'" + formatOffsetDateTime(entity.getBirthday()) + "' )";
+            statement.executeUpdate(sql);
+            if (statement instanceof StatementImpl impl)
+                entity.setId(impl.getLastInsertID());
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void insertWithProcedure(final EmployeeEntity entity){
 
         try (
                 var connection = ConnectionUtil.getConnection();
@@ -29,7 +46,7 @@ public class EmployeeDAO {
                 entity.setId(impl.getLastInsertID());
 
         } catch (SQLException ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
