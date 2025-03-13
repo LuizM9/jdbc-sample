@@ -1,8 +1,10 @@
 package org.example;
 
 import net.datafaker.Faker;
+import org.example.persistence.ContactDAO;
 import org.example.persistence.EmployeeDAO;
 import org.example.persistence.EmployeeParamDAO;
+import org.example.persistence.entity.ContactEntity;
 import org.example.persistence.entity.EmployeeAuditDAO;
 import org.example.persistence.entity.EmployeeEntity;
 import org.flywaydb.core.Flyway;
@@ -22,6 +24,7 @@ public class Main {
 
     private final static EmployeeParamDAO employeeDAO = new EmployeeParamDAO();
     private final static EmployeeAuditDAO employeeAuditDAO = new EmployeeAuditDAO();
+    private final static ContactDAO contactDAO = new ContactDAO();
     private final static Faker faker = new Faker(Locale.of("pt", "BR"));
 
     public static void main(String[] args) {
@@ -35,7 +38,7 @@ public class Main {
 //        insert.setSalary(new BigDecimal("4500"));
 //        insert.setBirthday(OffsetDateTime.now().minusYears(18));
 //        System.out.println(insert);
-//        employeeDAO.insertWithProcedure(insert);
+//        employeeDAO.insert(insert);
 //        System.out.println(insert);
 //
 //        employeeDAO.findAll().forEach(System.out::println);
@@ -53,14 +56,30 @@ public class Main {
 //
 //        employeeAuditDAO.findAll().forEach(System.out::println);
 
-        var entities = Stream.generate(() ->{
-            var employee = new EmployeeEntity();
-            employee.setName(faker.name().fullName());
-            employee.setSalary(new BigDecimal(faker.number().digits(4)));
-            employee.setBirthday(OffsetDateTime.of(LocalDate.now().minusYears(faker.number().numberBetween(40,20)), LocalTime.MIN, UTC));
-            return employee;
-        }).limit(10000).toList();
+//        var entities = Stream.generate(() ->{
+//            var employee = new EmployeeEntity();
+//            employee.setName(faker.name().fullName());
+//            employee.setSalary(new BigDecimal(faker.number().digits(4)));
+//            employee.setBirthday(OffsetDateTime.of(LocalDate.now().minusYears(faker.number().numberBetween(40,20)), LocalTime.MIN, UTC));
+//            return employee;
+//        }).limit(10000).toList();
+//
+//        employeeDAO.insertBatch(entities);
 
-        employeeDAO.insertBatch(entities);
+//        var employee = new EmployeeEntity();
+//        employee.setName("carlos");
+//        employee.setSalary(new BigDecimal("4500"));
+//        employee.setBirthday(OffsetDateTime.now().minusYears(18));
+//        System.out.println(employee);
+//        employeeDAO.insert(employee);
+//        System.out.println(employee);
+//
+//        var contact = new ContactEntity();
+//        contact.setDescription("carlos@carlos.com");
+//        contact.setType("e-mail");
+//        contact.setEmployee(employee);
+//        contactDAO.insert(contact);
+
+        System.out.println(employeeDAO.findById(2));
     }
 }

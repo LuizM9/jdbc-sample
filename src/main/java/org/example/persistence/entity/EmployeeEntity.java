@@ -9,7 +9,13 @@ import java.time.OffsetDateTime;
 public class EmployeeEntity {
 
     private long id;
+
     private String name;
+
     private BigDecimal salary;
+
     private OffsetDateTime birthday;
+
+    private  ContactEntity contact;
+
 }
