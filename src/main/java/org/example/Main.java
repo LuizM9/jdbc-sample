@@ -80,6 +80,6 @@ public class Main {
 //        contact.setEmployee(employee);
 //        contactDAO.insert(contact);
 
-        System.out.println(employeeDAO.findById(2));
+        employeeDAO.findAll().forEach(System.out::println);
     }
 }
