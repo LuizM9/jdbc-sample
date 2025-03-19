@@ -1,6 +1,7 @@
-package org.example.persistence.entity;
+package org.example.persistence;
 
-import org.example.persistence.ConnectionUtil;
+import org.example.persistence.entity.EmployeeAuditEntity;
+import org.example.persistence.entity.OperationEnum;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
