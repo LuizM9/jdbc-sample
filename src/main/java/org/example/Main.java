@@ -31,6 +31,7 @@ public class Main {
         var flyway = Flyway.configure()
                 .dataSource("jdbc:mysql://localhost/jdbc-sample", "root", "root")
                 .load();
+        flyway.repair();
         flyway.migrate();
 
 //        var insert = new EmployeeEntity();
